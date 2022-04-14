@@ -17,6 +17,13 @@ const UserSchema = new Schema({
     email: {
         type: String,
     },
+    shoppingCart: {
+        type: [],
+        required: true,
+    },
+    address: {
+        type: String,
+    }
 })
 // create model
 module.exports = mongoose.model("User", UserSchema);
