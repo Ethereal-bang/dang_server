@@ -10,4 +10,6 @@ router.get('/', function(req, res, next) {
 /*Get user by tel*/
 router.get("/getUser", userController.user_info);
 
+router.get("/login", userController.login);
+
 module.exports = router;
