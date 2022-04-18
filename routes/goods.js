@@ -8,4 +8,6 @@ router.get('/', function(req, res, next) {
 
 router.get("/showAll", goodsController.showAll);
 
+router.get("/_deleteAll", goodsController._deleteAll);
+
 module.exports = router;

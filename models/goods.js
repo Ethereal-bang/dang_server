@@ -29,9 +29,12 @@ const GoodsSchema = new Schema({
     comments: {
         type: Number,
     },
-    price: {
+    price_now: {
         type: Number,
         required: true,
+    },
+    price_old: {
+        type: Number,
     },
     color: {
         type: [String],

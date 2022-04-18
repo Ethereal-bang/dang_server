@@ -16,3 +16,14 @@ exports.showAll = (req, res, next) => {
             }
         })
 }
+
+exports._deleteAll = (req, res, next) => {
+    Goods.deleteMany({})
+        .exec((error, result) => {
+            if (error) {
+                res.send(error);
+            } else {
+                res.send("删除成功" + result.deletedCount);
+            }
+        })
+}
