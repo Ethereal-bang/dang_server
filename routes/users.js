@@ -8,8 +8,12 @@ router.get('/', function(req, res, next) {
 });
 
 /*Get user by tel*/
-router.get("/getUser", userController.user_info);
+router.get("/getUser/:tel", userController.user_info);
 
 router.get("/login", userController.login);
+
+router.get("/_showAll", userController._showAll);
+
+router.get("/register", userController.register);
 
 module.exports = router;
