@@ -11,7 +11,10 @@ exports.showAll = (req, res, next) => {
             } else {
                 res.json({
                     flag: true,
-                    data: goodsList,
+                    data: {
+                        count: goodsList.length,
+                        list: goodsList,
+                    },
                 })
             }
         })
@@ -24,6 +27,28 @@ exports._deleteAll = (req, res, next) => {
                 res.send(error);
             } else {
                 res.send("删除成功" + result.deletedCount);
+            }
+        })
+}
+
+exports.getByType = async (req, res, next) => {
+    const {type} = req.params;
+    await Goods.find({ type })
+        .exec((err, goodsList) => {
+            if (err) {
+                res.json({
+                    flag: false,
+                    msg: err,
+                })
+            } else {
+                res.json({
+                    flag: true,
+                    msg: `查询成功: ${type}`,
+                    data: {
+                        count: goodsList.length,
+                        list: goodsList,
+                    },
+                })
             }
         })
 }

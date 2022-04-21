@@ -7,9 +7,12 @@ const GoodsSchema = new Schema({
         type: String,
         required: true,
     },
-    genre: {
-        type: [String],
+    type: {
+        type: String,
         required: true,
+    },
+    genre: {
+        type: String,
     },
     img: {
         type: [String], // 包括各个颜色的图片
@@ -44,4 +47,4 @@ const GoodsSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model("Goods", GoodsSchema);
+module.exports = mongoose.model("Goods", GoodsSchema, "goods");
