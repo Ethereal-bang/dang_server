@@ -5,8 +5,8 @@ router.get('/', function(req, res, next) {
     res.send('Ad');
 });
 
-router.get("/getAll", adController.showAll);
+router.get("/_showAll", adController.showAll);
 
-router.get("/getByPos")
+router.get("/getByPos/:pos", adController.getByPos);
 
 module.exports = router;

@@ -11,8 +11,10 @@ exports.showAll = async (req, res, next) => {
             } else {
                 res.json({
                     flag: true,
-                    msg: "查询成功",
-                    data: adList,
+                    data: {
+                        count: adList.length,
+                        list: adList,
+                    },
                 })
             }
         })
@@ -30,8 +32,11 @@ exports.getByPos = (req, res, next) => {
             } else {
                 res.json({
                     flag: true,
-                    msg: "查询成功",
-                    data: adList,
+                    msg: `查询成功${pos}`,
+                    data: {
+                        count: adList.length,
+                        list: adList,
+                    },
                 })
             }
         })
