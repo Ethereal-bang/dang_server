@@ -9,4 +9,6 @@ router.get("/_showAll", adController.showAll);
 
 router.get("/getByPos/:pos", adController.getByPos);
 
+router.get("/_add", adController._add);
+
 module.exports = router;

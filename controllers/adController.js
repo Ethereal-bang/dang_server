@@ -41,3 +41,16 @@ exports.getByPos = (req, res, next) => {
             }
         })
 }
+
+exports._add = (req, res, next) => {
+    const {name, position, img, link} = req.query;
+    Ad.create({
+        name,
+        position,
+        img,
+        link,
+    })
+    .then(ad => {
+        res.send(`添加成功：${ad}`);
+    })
+}
