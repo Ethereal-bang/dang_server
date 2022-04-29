@@ -52,3 +52,22 @@ exports.getByType = async (req, res, next) => {
             }
         })
 }
+
+exports.getById = async (req, res, next) => {
+    const {id} = req.params;
+    Goods.findById(id)
+        .exec((err, goods) => {
+            if (err) {
+                res.json({
+                    flag: false,
+                    msg: err,
+                })
+            } else {
+                res.json({
+                    flag: true,
+                    msg: `查询成功: ${id}`,
+                    data: goods,
+                })
+            }
+        })
+}

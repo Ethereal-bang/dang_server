@@ -12,4 +12,6 @@ router.get("/_deleteAll", goodsController._deleteAll);
 
 router.get("/getByType/:type", goodsController.getByType);
 
+router.get("/getById/:id", goodsController.getById);
+
 module.exports = router;
