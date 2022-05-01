@@ -18,6 +18,6 @@ router.get("/register", userController.register);
 
 router.get("/getShoppingCart", userController.showShoppingCart);
 
-router.get("/addShoppingCart", userController.getShoppingCart);
+router.get("/addShoppingCart", userController.addShoppingCart);
 
 module.exports = router;

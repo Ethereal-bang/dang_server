@@ -116,7 +116,7 @@ exports.showShoppingCart = (req, res, next) => {
         })
 }
 
-exports.getShoppingCart = (req, res, next) => {
+exports.addShoppingCart = (req, res, next) => {
     const { goodsId, tel } = req.query;
 
     User.findOne({ tel }, ["shoppingCart"])

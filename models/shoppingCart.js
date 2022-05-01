@@ -11,8 +11,12 @@ const ShoppingCartSchema = new Schema({
         type: Number,
         default: 0,
     },
-    goods: {    // ?    商品id:对应数目
-        type: [{String: Number}], 
+    goodsList: {    // {商品id, 对应数目}
+        type: [{
+            goods: Schema.Types.ObjectId,
+            count: Number,
+        }],
+        ref: "Goods", 
     },
 }) 
 
