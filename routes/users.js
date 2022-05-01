@@ -16,4 +16,8 @@ router.get("/_showAll", userController._showAll);
 
 router.get("/register", userController.register);
 
+router.get("/getShoppingCart", userController.showShoppingCart);
+
+router.get("/addShoppingCart", userController.getShoppingCart);
+
 module.exports = router;

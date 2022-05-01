@@ -1,3 +1,4 @@
+const ShoppingCart = require("../models/shoppingCart");
 const User = require("../models/user");
 
 exports._showAll = async (req, res, next) => {
@@ -30,9 +31,9 @@ exports.user_info = async (req, res, next) => {
         })
 }
 
-exports.register = async (req, res, next) => {
+exports.register = (req, res, next) => {
     const {tel, password} = req.query;
-    await User.findOne({tel})
+    User.findOne({tel})
         .exec((err, ret) => {
             if (ret) {
                 res.json({
@@ -40,25 +41,30 @@ exports.register = async (req, res, next) => {
                     msg: "用户已存在",
                 })
             } else {
-                User.create({
-                    tel,
-                    password,
-                })
-                    .then(user => {
-                        res.json({
-                            flag: true,
-                            data: user,
-                            msg: "注册成功"
+                ShoppingCart.create({})   // 新建一购物车与该用户对应
+                    .then(ret => {
+                        User.create({
+                            tel,
+                            password,
+                            shoppingCart: ret._id,   // 购物车id
                         })
+                            .then(user => {
+                                res.json({
+                                    flag: true,
+                                    data: user,
+                                    msg: "注册成功"
+                                })
+                            })
+        
                     })
             }
         })
 }
 
-exports.login = async (req, res, next) => {
+exports.login = (req, res, next) => {
     const {tel, password} = req.query;
     console.log(tel)
-    await User.findOne({"tel": tel})
+    User.findOne({"tel": tel})
         .exec((error, result) => {
             if (error) {
                 res.json({
@@ -88,4 +94,47 @@ exports.login = async (req, res, next) => {
                 }
             }
         })
+}
+
+exports.showShoppingCart = (req, res, next) => {
+    const { tel } = req.query;
+    User.findOne({ tel })
+        .populate("shoppingCart")    
+        .exec((err, shoppingCartList) => {
+            console.log(shoppingCartList);
+            if (err) {
+                res.json({
+                    flag: false,
+                    msg: err,
+                })
+            } else {
+                res.json({
+                    flag: true,
+                    data: shoppingCartList,
+                })
+            }
+        })
+}
+
+exports.getShoppingCart = (req, res, next) => {
+    const { goodsId, tel } = req.query;
+
+    User.findOne({ tel }, ["shoppingCart"])
+        .exec((err, ret) => {
+            if (err) {
+                res.json({
+                    flag: false,
+                    msg: err,
+                })
+            } else {
+                console.log(ret);
+                res.send(ret)
+                
+                ret.shoppingCart.map(item => {
+                    if (item === goodsId) {
+
+                    }
+                })
+            }
+    })
 }

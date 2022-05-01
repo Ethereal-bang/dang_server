@@ -18,7 +18,8 @@ const UserSchema = new Schema({
         type: String,
     },
     shoppingCart: {
-        type: [],
+        type: Schema.Types.ObjectId,
+        ref: "ShoppingCart",
         required: true,
     },
     address: {
