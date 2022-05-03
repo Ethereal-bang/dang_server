@@ -1,6 +1,5 @@
 const ShoppingCart = require("../models/shoppingCart");
 const Goods = require("../models/goods");
-const mongoose = require("mongoose");
 
 exports.addGoods = async (req, res, next) => {
     const {tel} = req.params;
@@ -29,4 +28,24 @@ exports.addGoods = async (req, res, next) => {
         msg: "添加成功",
         data: shoppingCart,
     })
+}
+
+exports.show = (req, res, next) => {
+    const { userId: shoppingCartId } = req.params;
+    ShoppingCart.findById(shoppingCartId)
+        .populate("goodsList")
+        .exec((err, shoppingCart) => {
+            if (err) {
+                res.json({
+                    flag: false,
+                    msg: err,
+                })
+            } else {
+                res.json({
+                    flag: true,
+                    data: shoppingCart,
+                })
+            }
+        })
+
 }

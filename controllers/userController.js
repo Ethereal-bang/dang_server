@@ -96,22 +96,3 @@ exports.login = (req, res, next) => {
         })
 }
 
-exports.showShoppingCart = (req, res, next) => {
-    const { tel } = req.query;
-    User.findOne({ tel }, "shoppingCart")
-        .populate("shoppingCart")    
-        .exec((err, shoppingCartList) => {
-            console.log(shoppingCartList);
-            if (err) {
-                res.json({
-                    flag: false,
-                    msg: err,
-                })
-            } else {
-                res.json({
-                    flag: true,
-                    data: shoppingCartList,
-                })
-            }
-        })
-}
