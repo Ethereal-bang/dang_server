@@ -6,5 +6,6 @@ router.get('/', function(req, res, next) {
     res.send('ShoppingCart');
 });
 
-router.get("/:tel/addGoods", shoppingCartController.add);
+router.get("/:tel/addGoods", shoppingCartController.addGoods);
   
+module.exports = router;

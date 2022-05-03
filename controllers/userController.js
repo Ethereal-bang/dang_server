@@ -98,7 +98,7 @@ exports.login = (req, res, next) => {
 
 exports.showShoppingCart = (req, res, next) => {
     const { tel } = req.query;
-    User.findOne({ tel })
+    User.findOne({ tel }, "shoppingCart")
         .populate("shoppingCart")    
         .exec((err, shoppingCartList) => {
             console.log(shoppingCartList);
@@ -114,27 +114,4 @@ exports.showShoppingCart = (req, res, next) => {
                 })
             }
         })
-}
-
-exports.addShoppingCart = (req, res, next) => {
-    const { goodsId, tel } = req.query;
-
-    User.findOne({ tel }, ["shoppingCart"])
-        .exec((err, ret) => {
-            if (err) {
-                res.json({
-                    flag: false,
-                    msg: err,
-                })
-            } else {
-                console.log(ret);
-                res.send(ret)
-                
-                ret.shoppingCart.map(item => {
-                    if (item === goodsId) {
-
-                    }
-                })
-            }
-    })
 }
