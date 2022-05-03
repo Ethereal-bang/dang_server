@@ -13,10 +13,14 @@ exports.addGoods = async (req, res, next) => {
     // 1.调整购物车商品总数
     shoppingCart.count += num;
     // 2.添加该商品ID
-    shoppingCart.goodsList.push(id);
+    let cnt = 0;
+    while (cnt < num) {   // 加num次
+        shoppingCart.goodsList.push(id);
+        cnt++;
+    }
     // 3.调整购物车总价
-    const goodsPrice = await Goods.findById(id).exec();
-    shoppingCart.price += num * goodsPrice.price_now;
+    const goods = await Goods.findById(id).exec();
+    shoppingCart.price += num * goods.price_now;
     // 4.更新文档
     await ShoppingCart
         .updateOne(
@@ -26,12 +30,15 @@ exports.addGoods = async (req, res, next) => {
     res.json({
         flag: true,
         msg: "添加成功",
-        data: shoppingCart,
+        data: {
+            name: goods.name,
+            num,
+        },
     })
 }
 
 exports.show = (req, res, next) => {
-    const { userId: shoppingCartId } = req.params;
+    const { shoppingCartId } = req.params;
     ShoppingCart.findById(shoppingCartId)
         .populate("goodsList")
         .exec((err, shoppingCart) => {
