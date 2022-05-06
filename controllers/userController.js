@@ -63,8 +63,8 @@ exports.register = (req, res, next) => {
 
 exports.login = (req, res, next) => {
     const {tel, password} = req.query;
-    console.log(tel)
     User.findOne({"tel": tel})
+        .populate("shoppingCart")
         .exec((error, result) => {
             if (error) {
                 res.json({
@@ -78,7 +78,10 @@ exports.login = (req, res, next) => {
                         res.json({
                             flag: true,
                             msg: "登录成功",
-                            data: true,
+                            data: {
+                                tel,
+                                shoppingCartId: result.shoppingCart._id,
+                            },
                         });
                     } else {
                         res.json({
