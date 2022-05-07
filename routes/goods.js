@@ -14,4 +14,6 @@ router.get("/getByType/:type", goodsController.getByType);
 
 router.get("/getById/:id", goodsController.getById);
 
+router.get("/search", goodsController.search);
+
 module.exports = router;
