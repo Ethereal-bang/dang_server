@@ -7,11 +7,18 @@ exports.addGoods = async (req, res, next) => {
     num = parseInt(num);
 
     const shoppingCart = await ShoppingCart
-        .findOne({tel})
-        .populate("goodsList")
-        .exec();
-    // 1.调整购物车商品总数
-    shoppingCart.count += num;
+        .findOne({tel}).populate("goodsList").exec();
+    // 1.调整购物车商品总数（重复不计入)
+    let flag = false;
+    for (let {_id} of shoppingCart.goodsList) {
+        if (_id === id) {
+            flag = true;
+            break;
+        }
+    }
+    if (!flag) {
+        shoppingCart.count += num;  // 只加不重复商品
+    }
     // 2.添加该商品ID
     let cnt = 0;
     while (cnt < num) {   // 加num次
@@ -55,4 +62,17 @@ exports.show = (req, res, next) => {
             }
         })
 
+}
+
+exports.reset = async (req, res, next) => {
+    const {tel} = req.params;
+    await ShoppingCart.updateOne({tel}, {
+        count: 0,
+        price: 0,
+        goodsList: [],
+    }).exec()
+    res.json({
+        flag: true,
+        msg: "清空成功",
+    })
 }

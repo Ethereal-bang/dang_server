@@ -10,4 +10,6 @@ router.get("/:tel/addGoods", shoppingCartController.addGoods);
 
 router.get("/:shoppingCartId/show", shoppingCartController.show);
 
+router.get("/:tel/reset", shoppingCartController.reset);
+
 module.exports = router;
