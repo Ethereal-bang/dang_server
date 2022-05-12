@@ -66,7 +66,9 @@ exports.getById = async (req, res, next) => {
                 res.json({
                     flag: true,
                     msg: `查询成功: ${id}`,
-                    data: goods,
+                    data: {
+                        goods,
+                    }
                 })
             }
         })
@@ -75,16 +77,23 @@ exports.getById = async (req, res, next) => {
 exports.search = async (req, res, next) => {
     const { name } = req.query;
     if (!/[\u4e00-\u9fa5\w]/.test(name)) {    // 只要有一个中英文字符就搜索
-        res.send("空")
-    } else {
+        res.json({
+            flag: true,
+            msg: "无效字符串" + name,
+            data: {
+                list: [],
+            },
+        })
+} else {
         const docs = await Goods.find({ name: {
             $regex: name,
         }}).exec();
         res.json({
             flag: true,
             msg: "查询成功：" + name,
-            data: docs,
-        })
-    
+            data: {
+                list: docs,
+            },
+        })    
     }
 }

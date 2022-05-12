@@ -1,5 +1,6 @@
 const ShoppingCart = require("../models/shoppingCart");
 const Goods = require("../models/goods");
+const { log } = require("debug/src/browser");
 
 exports.addGoods = async (req, res, next) => {
     const {tel} = req.params;
@@ -49,6 +50,7 @@ exports.show = (req, res, next) => {
     ShoppingCart.findById(shoppingCartId)
         .populate("goodsList")
         .exec((err, shoppingCart) => {
+            console.log
             if (err) {
                 res.json({
                     flag: false,

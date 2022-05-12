@@ -51,7 +51,9 @@ exports.register = (req, res, next) => {
                             .then(user => {
                                 res.json({
                                     flag: true,
-                                    data: user,
+                                    data: {
+                                        user,
+                                    },
                                     msg: "注册成功"
                                 })
                             })
@@ -79,8 +81,10 @@ exports.login = (req, res, next) => {
                             flag: true,
                             msg: "登录成功",
                             data: {
-                                tel,
-                                shoppingCartId: result.shoppingCart._id,
+                                user: {
+                                    tel,
+                                    shoppingCartId: result.shoppingCart._id,    
+                                },
                             },
                         });
                     } else {
