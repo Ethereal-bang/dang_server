@@ -15,7 +15,7 @@ const GoodsSchema = new Schema({
         type: String,
     },
     img: {
-        type: [String], // 包括各个颜色的图片
+        type: String, // 包括各个颜色的图片
         required: true,
     },
     description: {
